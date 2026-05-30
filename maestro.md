@@ -370,10 +370,11 @@ Llenar las carpetas con los archivos donde CC guarda su memoria.
 no recordaba que ya habiamos decidido no tocar esa tabla. Desde que
 tiene memoria, eso no paso nunca mas."
 
-📦 Vamos a crear 4 archivos:
+📦 Vamos a crear 5 archivos:
    📊 progreso.md → estado actual del proyecto
    ⚠️ errores-aprendidos.md → errores y como se resuelven
    🎯 decisiones.md → por que elegiste cada cosa
+   🗂️ sesiones.md → indice de tus sesiones (para retomarlas despues)
    🎨 identidad.md → quien es tu proyecto
 ```
 
@@ -424,6 +425,17 @@ Cuando diga dale:
 - Por que: es la diferencia entre usar CC como un chat y usarlo como un profesional
 ```
 
+**memory/sesiones.md:**
+```markdown
+# 🗂️ Indice de Sesiones — [NOMBRE_PROYECTO]
+> En VS Code no se puede renombrar la conversacion por comando.
+> Por eso llevamos este indice: nombre ↔ codigo de sesion ↔ fecha.
+> El /cierre lo actualiza solo. Para retomar una: claude --resume <codigo>
+
+| Nombre | Codigo (sessionId) | Fecha | Que se hizo |
+|--------|--------------------|-------|-------------|
+```
+
 **marca/identidad.md:**
 ```markdown
 # 🎨 Identidad de marca — [NOMBRE_PROYECTO]
@@ -438,7 +450,7 @@ Cuando diga dale:
 
 Mostra:
 ```
-✅ 4 archivos creados!
+✅ 5 archivos creados (incluido el indice de sesiones)!
    📊 memory/progreso.md
    ⚠️ memory/errores-aprendidos.md
    🎯 memory/decisiones.md
@@ -732,13 +744,28 @@ CLAUDE.md le dice a CC QUIEN ES cuando trabaja en tu proyecto.
 negocio, los precios, los horarios, que cosas no tocar nunca. CC sabe
 mas de mi academia que algunos empleados. Y nunca se olvida."
 
-📦 Vamos a crear la estructura base. Despues vos la llenas con
-los datos reales de tu proyecto.
+📦 Te voy a hacer unas preguntas sobre tu proyecto para armar tu
+CLAUDE.md DE VERDAD — con tus datos reales, no una plantilla vacia.
+Cuanto mejor lo armemos, mejor te va a entender CC.
 ```
 
-Pausa: "✍️ **Dale** para crear el CLAUDE.md?"
+Pausa: "✍️ **Dale** y te hago unas preguntas para armarlo bien."
 
-Cuando diga dale, crea CLAUDE.md en la raiz con esta plantilla:
+Cuando diga dale, HACEME estas preguntas UNA POR UNA (espera mi respuesta
+entre cada una, NO me las tires todas juntas):
+
+1. ¿Como se llama tu proyecto o negocio?
+2. ¿Que hace, en una o dos frases simples?
+3. ¿Quien es tu cliente — a quien le vendes o quien lo usa?
+4. ¿Como queres que te hable CC? (directo, formal, con humor, etc.)
+5. ¿Hay algo que CC NUNCA deberia hacer en tu proyecto? (ej: borrar datos,
+   cambiar precios, tocar cierto archivo)
+6. ¿Algun dato clave que CC deba tener siempre presente? (precios, horarios,
+   reglas del negocio — opcional, podes saltarla)
+
+DESPUES, con MIS RESPUESTAS, crea CLAUDE.md en la raiz. Reemplaza cada [campo]
+con lo que respondi — NUNCA dejes placeholders ni inventes datos. Si salte
+una pregunta, poné "(a completar)" en ese punto. Usa esta plantilla de base:
 
 ```markdown
 # [NOMBRE_PROYECTO] — Instrucciones para Claude Code
