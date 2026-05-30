@@ -638,7 +638,8 @@ panel (la app cachea los nombres y no relee archivos). Por eso llevamos un
 indice propio en memory/sesiones.md — queda buscable y te deja retomar
 cualquier sesion. Sugeri 3 nombres segun lo trabajado, que el alumno elija.
 Despues obtene el codigo de la sesion activa y registrala:
-  DIR=$(ls -dt ~/.claude/projects/*/ | head -1)
+  PROJ=$(basename "$(pwd)")
+  DIR=$(ls -dt ~/.claude/projects/*"$PROJ"/ | head -1)
   SID=$(basename "$(ls -t "$DIR"*.jsonl | head -1)" .jsonl)
 Agrega a memory/sesiones.md una fila: Nombre elegido | codigo (SID) | fecha |
 resumen de 1 linea. Si el archivo no existe, crealo con el encabezado.
