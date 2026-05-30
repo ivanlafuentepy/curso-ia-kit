@@ -606,8 +606,11 @@ Cuando diga dale, crea estos 4 archivos en `.claude/commands/`:
 ```
 El command /cierre hace TODO esto en orden:
 
-PASO 1 — EXPORTAR: ejecuta date '+%Y-%m-%d' para la fecha real, despues:
-/export bitacora/[fecha].md (si ya existe hoy, agrega _HHMM con date '+%H%M')
+PASO 1 — BITACORA: ejecuta date '+%Y-%m-%d' para la fecha real. Despues
+ESCRIBI vos (Claude) un resumen de la conversacion de hoy en
+bitacora/[fecha].md (si ya existe hoy, agrega _HHMM con date '+%H%M').
+NO uses /export: Claude no puede ejecutar slash commands. Escribi el archivo
+a mano con el resumen de lo que se hizo en la sesion.
 
 PASO 2 — HANDOFF: crea .claude/handoff.md con:
 # HANDOFF — [fecha real] — [hora real]
@@ -630,11 +633,16 @@ PASO 4 — MEMORIA: actualiza memory/progreso.md. Si hubo errores,
 actualiza memory/errores-aprendidos.md. Si hubo correcciones de
 comportamiento, preguntame si agrego regla al CLAUDE.md.
 
-PASO 5 — NOMBRAR SESION: sugieri 3 nombres cortos segun lo trabajado y
-que el alumno elija. OJO: en VS Code el nombre de la sesion NO se pone
-por comando ni de forma automatica — se cambia a mano con el lapiz del
-historial de conversaciones del panel. Pasale el nombre elegido para que
-lo aplique ahi (CC no puede renombrar la sesion solo).
+PASO 5 — INDICE DE SESIONES: en VS Code no se puede renombrar la sesion del
+panel (la app cachea los nombres y no relee archivos). Por eso llevamos un
+indice propio en memory/sesiones.md — queda buscable y te deja retomar
+cualquier sesion. Sugeri 3 nombres segun lo trabajado, que el alumno elija.
+Despues obtene el codigo de la sesion activa y registrala:
+  DIR=$(ls -dt ~/.claude/projects/*/ | head -1)
+  SID=$(basename "$(ls -t "$DIR"*.jsonl | head -1)" .jsonl)
+Agrega a memory/sesiones.md una fila: Nombre elegido | codigo (SID) | fecha |
+resumen de 1 linea. Si el archivo no existe, crealo con el encabezado.
+Para retomar una sesion despues: claude --resume <codigo>.
 
 PASO 6 — CONFIRMAR: mostra "✅ Commit: [mensaje] — pushed" y resumen
 de cada cosa guardada.
@@ -680,12 +688,11 @@ Mostra:
    📍 /contexto — resumen del estado actual
    🔍 /verificar — doble check automatico
 
-📌 Ademas, CC ya viene con commands propios que vas a usar:
+📌 En la extension de VS Code NO se usan slash commands para las sesiones:
+   todo se hace desde el PANEL. (Ojo: /history y /export son SOLO de la version
+   terminal — en la extension NO existen, no los busques.)
 
-   🏷️ Lapiz del historial → renombra la conversacion a mano (en VS Code
-                            no hay comando para esto)
-   📜 /history         → Lista tus sesiones anteriores
-   📤 /export          → Exporta la conversacion a markdown
+   🏷️ Lapiz del historial → renombra una conversacion a mano
 
    💬 Y desde el panel Claude de VS Code:
    🔄 Historial de conversaciones → busca conversaciones anteriores
@@ -768,10 +775,10 @@ asi que trabajas con cuidado.
 - `/contexto` — resumen del estado actual
 - `/verificar` — CC verifica su propio trabajo
 
-### 📌 Commands built-in de CC
-- Renombrar la conversacion → a mano con el lapiz del historial del panel (en VS Code no es por comando)
-- `/history` — ver sesiones anteriores
-- `/export` — exportar conversacion a markdown
+### 📌 En VS Code se usa el PANEL (no slash commands de sesion)
+- Renombrar la conversacion → a mano con el lapiz del historial del panel
+- Historial de conversaciones del panel → ver y retomar sesiones anteriores
+- ⚠️ `/history` y `/export` son de la TERMINAL — NO existen en la extension VS Code
 
 ### 🧠 Donde esta la memoria
 - memory/progreso.md — estado del proyecto
